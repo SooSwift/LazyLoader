@@ -16,6 +16,7 @@
 		03C3EDB91E0BCB0C00430BB0 /* Content.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03C3EDB81E0BCB0C00430BB0 /* Content.swift */; };
 		03C3EDBB1E0BCF0E00430BB0 /* ContentManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03C3EDBA1E0BCF0E00430BB0 /* ContentManager.swift */; };
 		03C3EDBD1E0BDDE600430BB0 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03C3EDBC1E0BDDE600430BB0 /* Constants.swift */; };
+		03C3EDBF1E0BE76E00430BB0 /* ContentViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03C3EDBE1E0BE76E00430BB0 /* ContentViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -42,6 +43,7 @@
 		03C3EDB81E0BCB0C00430BB0 /* Content.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Content.swift; sourceTree = "<group>"; };
 		03C3EDBA1E0BCF0E00430BB0 /* ContentManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentManager.swift; sourceTree = "<group>"; };
 		03C3EDBC1E0BDDE600430BB0 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		03C3EDBE1E0BE76E00430BB0 /* ContentViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -125,6 +127,7 @@
 		03C3EDB41E0BC90300430BB0 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				03C3EDBE1E0BE76E00430BB0 /* ContentViewCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -244,6 +247,7 @@
 			files = (
 				03C3EDBD1E0BDDE600430BB0 /* Constants.swift in Sources */,
 				03C3EDB61E0BC95100430BB0 /* ViewController.swift in Sources */,
+				03C3EDBF1E0BE76E00430BB0 /* ContentViewCell.swift in Sources */,
 				03C3EDBB1E0BCF0E00430BB0 /* ContentManager.swift in Sources */,
 				03C3ED931E0BC57F00430BB0 /* AppDelegate.swift in Sources */,
 				03C3EDB91E0BCB0C00430BB0 /* Content.swift in Sources */,

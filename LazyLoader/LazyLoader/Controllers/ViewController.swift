@@ -8,17 +8,23 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class ViewController: UIViewController, UITableViewDataSource {
 
     //MARK:- Properties
     var feedContent:Content = Content(title: "", images: [])
-    
-    
+    @IBOutlet weak var contentTableView: UITableView!
+
     //MARK:- View Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         
+        // Configure TableView
+        self.contentTableView.dataSource = self
+        self.contentTableView.rowHeight = UITableViewAutomaticDimension
+        self.contentTableView.estimatedRowHeight = 300
+        
+        // Fetch data
         self.fetchDataFromJSONFeed()
     }
 
@@ -49,8 +55,26 @@ class ViewController: UIViewController {
             
             DispatchQueue.main.async {
                 self.title = content.title
+                self.contentTableView.reloadData()
             }
         }
+    }
+    
+    //MARK:- TableViewDataSource Methods
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return feedContent.images.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "lazyCell") as! ContentViewCell
+        
+        let imageElement = self.feedContent.images[indexPath.row]
+        
+        cell.contentImageView.image = imageElement.image
+        cell.nameLabel.text = imageElement.name
+        cell.descriptionLabel.text = imageElement.description
+        
+        return cell
     }
 
 }
