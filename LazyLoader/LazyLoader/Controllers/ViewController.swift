@@ -12,6 +12,7 @@ class ViewController: UIViewController, UITableViewDataSource {
 
     //MARK:- Properties
     var feedContent:Content = Content(title: "", images: [])
+    let activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: .gray)
     @IBOutlet weak var contentTableView: UITableView!
 
     //MARK:- View Lifecycle
@@ -36,11 +37,15 @@ class ViewController: UIViewController, UITableViewDataSource {
     
     //MARK:- Helper Methods
     private func fetchDataFromJSONFeed() {
+        self.showProgressIndicator()
+        
         ContentManager.getContentfromJSONFeed(urlString: Config.feedURL) { (success, content) in
-            
+        
             // Show alert to user on failure
             if(!success || content == nil) {
                 DispatchQueue.main.async {
+                    self.hideProgressIndicator()
+                    
                     let alert = UIAlertController(title: "Error", message: "Unable to fetch data", preferredStyle: .alert)
                     alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
                     self.present(alert, animated: true)
@@ -54,6 +59,8 @@ class ViewController: UIViewController, UITableViewDataSource {
             self.feedContent = content
             
             DispatchQueue.main.async {
+                self.hideProgressIndicator()
+                
                 self.title = content.title
                 self.contentTableView.reloadData()
             }
@@ -75,6 +82,18 @@ class ViewController: UIViewController, UITableViewDataSource {
         cell.descriptionLabel.text = imageElement.description
         
         return cell
+    }
+    
+    //MARK:- Activity Indicator methods
+    func showProgressIndicator() {
+        self.activityIndicator.startAnimating()
+        self.activityIndicator.center = self.view.center
+        self.view.addSubview(activityIndicator)
+    }
+    
+    func hideProgressIndicator() {
+        self.activityIndicator.stopAnimating()
+        self.activityIndicator.removeFromSuperview()
     }
 
 }
