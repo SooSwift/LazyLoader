@@ -32,6 +32,7 @@ class ViewController: UIViewController, UITableViewDataSource {
         self.contentTableView.rowHeight = UITableViewAutomaticDimension
         self.contentTableView.estimatedRowHeight = 100
         self.contentTableView.addSubview(self.refreshControl)
+        self.contentTableView.tableFooterView = UIView()
         
         // Fetch data
         self.fetchDataFromJSONFeed()

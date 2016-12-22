@@ -2,7 +2,7 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "imagenotfound.png",
+      "filename" : "noImage.png",
       "scale" : "1x"
     },
     {

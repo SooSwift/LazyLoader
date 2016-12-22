@@ -99,7 +99,7 @@ class ContentManager{
                 continue
             }
             
-            let imageName = imageElement["title"] as? String ?? ""
+            let imageName = imageElement["title"] as? String ?? "UNKNOWN"
             let imageDescription = imageElement["description"] as? String ?? ""
             let imageHref = imageElement["imageHref"] as? String ?? ""
         
