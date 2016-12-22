@@ -90,6 +90,7 @@ class ViewController: UIViewController, UITableViewDataSource {
             }
         }
         
+        self.downloadManager.ongoingOperations[indexPath] = lazyDownloader
         self.downloadManager.operationQueue.addOperation(lazyDownloader)
     }
     
