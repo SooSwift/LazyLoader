@@ -14,6 +14,7 @@ class ViewController: UIViewController, UITableViewDataSource {
     var feedContent:Content = Content(title: "", images: [])
     let activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: .gray)
     let downloadManager = OperationManager()
+    var refreshControl = UIRefreshControl()
     
     @IBOutlet weak var contentTableView: UITableView!
 
@@ -22,10 +23,15 @@ class ViewController: UIViewController, UITableViewDataSource {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         
+        // Configure Refresh Control
+        self.refreshControl = UIRefreshControl()
+        self.refreshControl.addTarget(self, action: #selector(onPullToRefresh), for: .valueChanged)
+        
         // Configure TableView
         self.contentTableView.dataSource = self
         self.contentTableView.rowHeight = UITableViewAutomaticDimension
         self.contentTableView.estimatedRowHeight = 100
+        self.contentTableView.addSubview(self.refreshControl)
         
         // Fetch data
         self.fetchDataFromJSONFeed()
@@ -84,6 +90,10 @@ class ViewController: UIViewController, UITableViewDataSource {
         //Download images lazily
         let lazyDownloader = LazyDownloader(withImageElement: image)
         lazyDownloader.completionBlock = {
+            if(lazyDownloader.isCancelled) {
+                return
+            }
+            
             self.downloadManager.ongoingOperations.removeValue(forKey: indexPath)
             DispatchQueue.main.async {
                 self.contentTableView.reloadRows(at: [indexPath], with: .fade)
@@ -101,6 +111,10 @@ class ViewController: UIViewController, UITableViewDataSource {
         activityView.center = cell.contentImageView.center
         activityView.autoresizingMask = [.flexibleTopMargin, .flexibleBottomMargin, .flexibleLeftMargin, .flexibleRightMargin]
         return activityView
+    }
+    
+    func onPullToRefresh() {
+        self.refreshContent()
     }
     
     //MARK:- TableViewDataSource Methods
@@ -147,5 +161,15 @@ class ViewController: UIViewController, UITableViewDataSource {
         self.activityIndicator.removeFromSuperview()
     }
 
+    //MARK:- Refresh Handling
+    func refreshContent() {
+        self.refreshControl.endRefreshing()
+        self.feedContent = Content(title: "", images: [])
+        self.title = ""
+        self.downloadManager.reset()
+        self.contentTableView.reloadData()
+        self.fetchDataFromJSONFeed()
+    }
+    
 }
 

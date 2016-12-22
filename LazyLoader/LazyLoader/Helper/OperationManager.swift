@@ -20,6 +20,11 @@ class OperationManager {
         self.operationQueue = OperationQueue()
         self.operationQueue.maxConcurrentOperationCount = 3 //load max 3 images concurrently
     }
+    
+    func reset() {
+        self.operationQueue.cancelAllOperations()
+        self.ongoingOperations = [IndexPath:Operation]()
+    }
 }
 
 class LazyDownloader: Operation {
@@ -34,10 +39,7 @@ class LazyDownloader: Operation {
     
     //MARK:- Operation Method
     override func main() {
-        if(self.isCancelled) {
-            print("Operation to dowload image for title:\(target.name) is cancelled")
-            return
-        }
+        if(self.isCancelled) {return}
         
         if(self.target.status == .DownloadComplete) {
             print("Image is already downloaded for title:\(target.name)")
@@ -45,6 +47,7 @@ class LazyDownloader: Operation {
         }
         
         print("Downloading image for title:\(target.name)")
+        if(self.isCancelled) {return}
         
         guard let imageURL = URL(string: target.imageURL) else {
             print("Malformed url for title: \(target.name)")
@@ -68,6 +71,7 @@ class LazyDownloader: Operation {
             return
         }
         
+        if(self.isCancelled) {return}
         self.target.image = downloadedImage
         self.target.status = .DownloadComplete
     }
