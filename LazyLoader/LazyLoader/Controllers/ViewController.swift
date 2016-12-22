@@ -112,8 +112,8 @@ class ViewController: UIViewController, UITableViewDataSource {
             self.loadLazily(image: imageElement, atIndexPath: indexPath)
         case .DownloadComplete:
             break
-        default:
-            break
+        case .DownloadFailed:
+            cell.contentImageView.image = #imageLiteral(resourceName: "imagenotfound")
         }
         return cell
     }
