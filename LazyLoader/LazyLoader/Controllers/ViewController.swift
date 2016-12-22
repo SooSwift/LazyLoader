@@ -25,7 +25,7 @@ class ViewController: UIViewController, UITableViewDataSource {
         // Configure TableView
         self.contentTableView.dataSource = self
         self.contentTableView.rowHeight = UITableViewAutomaticDimension
-        self.contentTableView.estimatedRowHeight = 300
+        self.contentTableView.estimatedRowHeight = 100
         
         // Fetch data
         self.fetchDataFromJSONFeed()
@@ -93,6 +93,15 @@ class ViewController: UIViewController, UITableViewDataSource {
         self.downloadManager.operationQueue.addOperation(lazyDownloader)
     }
     
+    private func createActivityIndicatorForCell(cell:ContentViewCell )->UIActivityIndicatorView {
+        let activityView = UIActivityIndicatorView(activityIndicatorStyle: .gray)
+        activityView.isHidden = false
+        cell.contentImageView.addSubview(activityView)
+        activityView.center = cell.contentImageView.center
+        activityView.autoresizingMask = [.flexibleTopMargin, .flexibleBottomMargin, .flexibleLeftMargin, .flexibleRightMargin]
+        return activityView
+    }
+    
     //MARK:- TableViewDataSource Methods
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return feedContent.images.count
@@ -107,12 +116,18 @@ class ViewController: UIViewController, UITableViewDataSource {
         cell.nameLabel.text = imageElement.name
         cell.descriptionLabel.text = imageElement.description
         
+        let activityView = self.createActivityIndicatorForCell(cell: cell)
         switch imageElement.status {
         case .Default:
+            activityView.startAnimating()
             self.loadLazily(image: imageElement, atIndexPath: indexPath)
         case .DownloadComplete:
+            activityView.stopAnimating()
+            activityView.removeFromSuperview()
             break
         case .DownloadFailed:
+            activityView.stopAnimating()
+            activityView.removeFromSuperview()
             cell.contentImageView.image = #imageLiteral(resourceName: "imagenotfound")
         }
         return cell
