@@ -17,6 +17,7 @@
 		03C3EDBB1E0BCF0E00430BB0 /* ContentManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03C3EDBA1E0BCF0E00430BB0 /* ContentManager.swift */; };
 		03C3EDBD1E0BDDE600430BB0 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03C3EDBC1E0BDDE600430BB0 /* Constants.swift */; };
 		03C3EDBF1E0BE76E00430BB0 /* ContentViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03C3EDBE1E0BE76E00430BB0 /* ContentViewCell.swift */; };
+		03C3EDC11E0BF1F400430BB0 /* OperationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03C3EDC01E0BF1F400430BB0 /* OperationManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -44,6 +45,7 @@
 		03C3EDBA1E0BCF0E00430BB0 /* ContentManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentManager.swift; sourceTree = "<group>"; };
 		03C3EDBC1E0BDDE600430BB0 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		03C3EDBE1E0BE76E00430BB0 /* ContentViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentViewCell.swift; sourceTree = "<group>"; };
+		03C3EDC01E0BF1F400430BB0 /* OperationManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OperationManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -136,6 +138,7 @@
 			isa = PBXGroup;
 			children = (
 				03C3EDBA1E0BCF0E00430BB0 /* ContentManager.swift */,
+				03C3EDC01E0BF1F400430BB0 /* OperationManager.swift */,
 			);
 			path = Helper;
 			sourceTree = "<group>";
@@ -250,6 +253,7 @@
 				03C3EDBF1E0BE76E00430BB0 /* ContentViewCell.swift in Sources */,
 				03C3EDBB1E0BCF0E00430BB0 /* ContentManager.swift in Sources */,
 				03C3ED931E0BC57F00430BB0 /* AppDelegate.swift in Sources */,
+				03C3EDC11E0BF1F400430BB0 /* OperationManager.swift in Sources */,
 				03C3EDB91E0BCB0C00430BB0 /* Content.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

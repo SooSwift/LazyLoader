@@ -13,6 +13,8 @@ class ViewController: UIViewController, UITableViewDataSource {
     //MARK:- Properties
     var feedContent:Content = Content(title: "", images: [])
     let activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: .gray)
+    let downloadManager = OperationManager()
+    
     @IBOutlet weak var contentTableView: UITableView!
 
     //MARK:- View Lifecycle
@@ -67,6 +69,30 @@ class ViewController: UIViewController, UITableViewDataSource {
         }
     }
     
+    private func loadLazily(image:ImageElement, atIndexPath indexPath:IndexPath) {
+    
+        // Leave images in other states
+        if image.status != .Default {
+            return
+        }
+        
+        // Check if image downloading already in progress
+        if let _ = self.downloadManager.ongoingOperations[indexPath] {
+            return
+        }
+        
+        //Download images lazily
+        let lazyDownloader = LazyDownloader(withImageElement: image)
+        lazyDownloader.completionBlock = {
+            self.downloadManager.ongoingOperations.removeValue(forKey: indexPath)
+            DispatchQueue.main.async {
+                self.contentTableView.reloadRows(at: [indexPath], with: .fade)
+            }
+        }
+        
+        self.downloadManager.operationQueue.addOperation(lazyDownloader)
+    }
+    
     //MARK:- TableViewDataSource Methods
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return feedContent.images.count
@@ -81,8 +107,17 @@ class ViewController: UIViewController, UITableViewDataSource {
         cell.nameLabel.text = imageElement.name
         cell.descriptionLabel.text = imageElement.description
         
+        switch imageElement.status {
+        case .Default:
+            self.loadLazily(image: imageElement, atIndexPath: indexPath)
+        case .DownloadComplete:
+            break
+        default:
+            break
+        }
         return cell
     }
+    
     
     //MARK:- Activity Indicator methods
     func showProgressIndicator() {
